@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
 
-function App() {
+import MovieForm from './MovieForm/movie-form';
+import TvShowForm from './TvShowForm/tv-show-form';
+
+const App = () => {
+
+  const [inputMode, setInputMode] = useState('Movie');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={styles.App}>
+      <div style={styles.FormButtonContainer}>
+        <button onClick={() => {setInputMode('Movie')}}>Movie</button>
+        <button onClick={() => {setInputMode('TV Show')}}>TV Show</button>
+      </div>
+      {inputMode === 'Movie' ? 
+      <MovieForm styles={styles}/>: 
+      <TvShowForm styles={styles}/>}
     </div>
   );
+}
+
+const styles = {
+  App: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100vw',
+    height: '100vh',
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  Form : {
+    display: 'flex', 
+    flexDirection: 'column', 
+    flex: '1 1 1', 
+    width: '80%', 
+    maxWidth: '600px'
+  },
+  FormButtonContainer: {
+    display: 'flex', 
+    width: '100%',
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  FormButton: {
+
+  }, 
+  FormInput: {
+  }, 
+  FormSubmit: {
+    width: '50%', 
+    alignSelf: 'center'
+  }
 }
 
 export default App;
