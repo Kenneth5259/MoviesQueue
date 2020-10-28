@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const MovieForm = (props) => {
 
-    const [form, setFormData] = useState({title: '', user: ''})
+    const [form, setFormData] = useState({title: '', seasons:'', user: ''})
 
     const styles = {...props.styles}
 
@@ -18,9 +18,7 @@ const MovieForm = (props) => {
             formTemp.user = e.target.value;
             setFormData(formTemp);
         }}></input>
-        <button style={styles.FormSubmit} onClick={() => {
-            console.log(form);
-        }}>Submit</button>
+        <button style={styles.FormSubmit} onClick={() => props.submit(form)}>Submit</button>
     </div>)
 }
 

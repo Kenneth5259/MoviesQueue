@@ -20,9 +20,7 @@ const TvShowForm = (props) => {
             formTemp.user = e.target.value;
             setFormData(formTemp);
         }}></input>
-        <button style={styles.FormSubmit} onClick={() => {
-            console.log(form)
-        }}>Submit</button>
+        <button style={styles.FormSubmit} onClick={() => props.submit(form)}>Submit</button>
     </div>);
 }
 
