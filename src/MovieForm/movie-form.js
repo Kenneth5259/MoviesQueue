@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const MovieForm = (props) => {
 
-    const [form, setFormData] = useState({title: '', seasons:'', user: ''})
+    const [form, setFormData] = useState({title: '', seasons:'', user: '', type:'Movie'})
 
     const styles = {...props.styles}
 

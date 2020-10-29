@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 import MovieForm from './MovieForm/movie-form';
 import TvShowForm from './TvShowForm/tv-show-form';
+import Queue from './Queue/queue';
 
 const formApi = '';
 
@@ -11,13 +12,16 @@ const App = () => {
   const [queue, updateQueue] = useState([]);
 
   const onFormSubmit = (form) => {
-    Axios.post(formApi, {form: form})
+    const f = {...form};
+    f.date = new Date();
+
+    Axios.post(formApi, {form: f})
       .then(() => {
         
       })
       .catch(err => console.err)
       let tempQueue = [...queue];
-      tempQueue.push(form);
+      tempQueue.push(f);
       updateQueue(tempQueue);
   }
 
@@ -30,11 +34,7 @@ const App = () => {
       {inputMode === 'Movie' ? 
       <MovieForm styles={styles} submit={onFormSubmit}/>: 
       <TvShowForm styles={styles} submit={onFormSubmit}/>}
-      {queue.map(item => {
-        return (<div>
-        {item.title}
-        </div>)
-      })}
+      <Queue queue={queue}/>
     </div>
   );
 }
@@ -65,10 +65,22 @@ const styles = {
 
   }, 
   FormInput: {
+    border: 'none',
+    borderBottom: '2px solid lightgrey',
+    fontSize:'1rem',
+    padding: '1rem', 
+    margin: '1rem', 
+    outline: 'none'
   }, 
   FormSubmit: {
     width: '50%', 
-    alignSelf: 'center'
+    alignSelf: 'center', 
+    height: '2.5rem',
+    fontSize: '1.25rem',
+    border: 'none',
+    backgroundColor: 'green', 
+    color: 'white', 
+    borderRadius: '1rem'
   }
 }
 

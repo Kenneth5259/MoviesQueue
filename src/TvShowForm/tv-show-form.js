@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 const TvShowForm = (props) => {
-    const [form, setFormData] = useState({title: '', seasons: '', user: ''})
+    const [form, setFormData] = useState({title: '', seasons: '', user: '', type: 'TV Show'})
     const styles ={...props.styles};
     return(
     <div style={styles.Form}>
