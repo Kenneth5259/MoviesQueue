@@ -5,31 +5,38 @@ import MovieForm from './MovieForm/movie-form';
 import TvShowForm from './TvShowForm/tv-show-form';
 import Queue from './Queue/queue';
 
-const formApi = '';
+const formApi = 'https://localhost:5001/api/queue';
 
 const App = () => {
   const [inputMode, setInputMode] = useState('Movie');
   const [queue, updateQueue] = useState([]);
 
+  useEffect(() => {
+    Axios.get(formApi)
+      .then(items => {
+        updateQueue(items.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
   const onFormSubmit = (form) => {
     const f = {...form};
-    f.date = new Date();
+    f.created = new Date().toDateString();
 
-    Axios.post(formApi, {form: f})
+    Axios.post(formApi, f)
       .then(() => {
-        
+        let tempQueue = [...queue];
+        tempQueue.push(f);
+        updateQueue(tempQueue);
       })
       .catch(err => console.err)
-      let tempQueue = [...queue];
-      tempQueue.push(f);
-      updateQueue(tempQueue);
+      
   }
 
   return (
     <div style={styles.App}>
       <div style={styles.FormButtonContainer}>
-        <button onClick={() => {setInputMode('Movie')}}>Movie</button>
-        <button onClick={() => {setInputMode('TV Show')}}>TV Show</button>
+        <button style={inputMode === 'Movie' ? styles.FormButtonActive : styles.FormButton} onClick={() => {setInputMode('Movie')}}>Movie</button>
+        <button style={inputMode === 'TV Show' ? styles.FormButtonActive : styles.FormButton} onClick={() => {setInputMode('TV Show')}}>TV Show</button>
       </div>
       {inputMode === 'Movie' ? 
       <MovieForm styles={styles} submit={onFormSubmit}/>: 
@@ -62,8 +69,21 @@ const styles = {
     alignItems: 'center'
   },
   FormButton: {
-
+    backgroundColor: '#3c70c9',
+    color: 'white',
+    fontSize: '1.25rem',
+    width: '8rem',
+    height: '2rem',
+    border: '1px solid black'
   }, 
+  FormButtonActive: {
+    backgroundColor: '#2f5aa3',
+    color: 'white',
+    fontSize: '1.25rem',
+    width: '8rem',
+    height: '2rem',
+    border: '1px solid black'
+  },
   FormInput: {
     border: 'none',
     borderBottom: '2px solid lightgrey',

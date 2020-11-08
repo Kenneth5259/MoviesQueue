@@ -1,26 +1,17 @@
 import React from 'react';
+import {TableRow, TableData} from '../StyledTableComponents/styled-table-components';
 
 const QueueItem = (props) => {
     const item = props.item;
     
     return(
-    <tr style={styles.tableRow}>
-        <td style={styles.tableData} >{item.title}</td>
-        <td style={styles.tableData}>{item.type}</td>
-        {item.type === 'TV Show' ? <td style={styles.tableData}>Seasons {item.seasons}</td> : <td style={styles.tableData}></td>}
-        <td style={styles.tableData}>{item.user}</td>
-        <td style={styles.tableData}>{item.date.toDateString()}</td>
-    </tr>)
-}
-
-const styles = {
-    tableRow: {
-
-    }, 
-    tableData: {
-        margin: '1rem', 
-        padding: '1rem'
-    }
+    <TableRow>
+        <TableData>{item.title}</TableData>
+        <TableData>{item.type}</TableData>
+        {item.type === 'TV Show' ? <TableData>Seasons {item.seasons}</TableData> : <TableData>NA</TableData>}
+        <TableData>{item.user}</TableData>
+        <TableData>{item.created}</TableData>
+    </TableRow>)
 }
 
 export default QueueItem;

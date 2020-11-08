@@ -1,39 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import QueueItem from './queue-item';
 
-const TableHeader = styled.th`
-    background-color: red
-`;
+import {Table, TableHead, TableRow, TableHeader} from '../StyledTableComponents/styled-table-components';
 
 const Queue = (props) => {
     const queue = props.queue;
     return(
-        <table style={styles.table}>
-            <thead style={styles.table}>
-                <tr>
+        <Table>
+            <TableHead>
+                <TableRow>
                     <TableHeader>Title</TableHeader>
                     <TableHeader>Type</TableHeader>
                     <TableHeader>Seasons</TableHeader>
                     <TableHeader>User</TableHeader>
                     <TableHeader>Date Requested</TableHeader>
-                </tr>
-            </thead>
+                </TableRow>
+            </TableHead>
             <tbody>
                 {queue.map(item => {
                     return (<QueueItem item={item} key={Math.random()}/>)
                 })}
             </tbody>
             
-        </table>
+        </Table>
     )
-}
-
-const styles = {
-    table: {
-        border: '1px solid lightgrey'
-    }
 }
 
 export default Queue;
